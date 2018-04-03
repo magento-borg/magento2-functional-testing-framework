@@ -428,18 +428,6 @@ class TestGenerator
     }
 
     /**
-     * Creates a new PHP string to skip the test
-     *
-     * @return string
-     */
-
-    public function generateSkipStepsPhp()
-    {
-        $testSteps = "\t\t" . '$scenario->skip("This test is skipped");';
-        return $testSteps;
-    }
-
-    /**
      * Creates a PHP string for the actions contained withing a <test> block.
      * Since nearly half of all Codeception methods don't share the same signature I had to setup a massive Case
      * statement to handle each unique action. At the bottom of the case statement there is a generic function that can
@@ -1485,14 +1473,13 @@ class TestGenerator
     {
         $testPhp = "";
 
-        $skip_test = $test->getSkipTestBool();
         $testName = $test->getName();
         $testName = str_replace(' ', '', $testName);
         $testAnnotations = $this->generateAnnotationsPhp($test->getAnnotations(), true);
         $dependencies = 'AcceptanceTester $I';
-        if ($skip_test) {
-            $steps = $this->generateSkipStepsPhp();
-            $dependencies .= ', $scenario';
+        if ($test->isSkipped()) {
+            $steps = "\t\t" . '$scenario->skip("This test is skipped");';
+            $dependencies .= ', \Codeception\Scenario $scenario';
         } else {
             try {
                 $steps = $this->generateStepsPhp($test->getOrderedActions());
