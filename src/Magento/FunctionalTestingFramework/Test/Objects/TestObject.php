@@ -79,7 +79,7 @@ class TestObject
         if (array_key_exists('group', $this->annotations) && (in_array("skip", $this->annotations['group']))) {
             return true;
         }
-        return $false;
+        return false;
     }
 
     /**

@@ -1478,7 +1478,7 @@ class TestGenerator
         $testAnnotations = $this->generateAnnotationsPhp($test->getAnnotations(), true);
         $dependencies = 'AcceptanceTester $I';
         if ($test->isSkipped()) {
-            $steps = "\t\t" . '$scenario->skip("This test is skipped");';
+            $steps = "\t\t" . '$scenario->skip("This test is skipped");' . "\n";
             $dependencies .= ', \Codeception\Scenario $scenario';
         } else {
             try {
