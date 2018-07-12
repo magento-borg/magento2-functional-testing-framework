@@ -16,7 +16,7 @@ use Codeception\TestInterface;
 use Facebook\WebDriver\Exception\UnexpectedAlertOpenException;
 use Magento\FunctionalTestingFramework\Extension\ReadinessMetrics\AbstractMetricCheck;
 use Facebook\WebDriver\Exception\TimeOutException;
-use Magento\FunctionalTestingFramework\Util\Logger\LoggingUtil;
+//use Magento\FunctionalTestingFramework\Util\Logger\LoggingUtil;
 use Magento\FunctionalTestingFramework\Config\MftfApplicationConfig;
 use Monolog\Logger;
 
@@ -70,7 +70,7 @@ class PageReadinessExtension extends Extension
      */
     public function _initialize()
     {
-        $this->logger = LoggingUtil::getInstance()->getLogger(get_class($this));
+//        $this->logger = LoggingUtil::getInstance()->getLogger(get_class($this));
         $this->verbose = MftfApplicationConfig::getConfig()->verboseEnabled();
     }
 

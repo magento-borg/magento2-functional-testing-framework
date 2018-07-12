@@ -12,7 +12,7 @@ use Codeception\Step;
 use Codeception\TestInterface;
 use Facebook\WebDriver\Exception\UnexpectedAlertOpenException;
 use Magento\FunctionalTestingFramework\Extension\PageReadinessExtension;
-use Magento\FunctionalTestingFramework\Util\Logger\LoggingUtil;
+//use Magento\FunctionalTestingFramework\Util\Logger\LoggingUtil;
 use Magento\FunctionalTestingFramework\Config\MftfApplicationConfig;
 use Monolog\Logger;
 
@@ -70,7 +70,7 @@ abstract class AbstractMetricCheck
     public function __construct($extension, $test, $resetFailureThreshold){
         $this->extension = $extension;
         $this->test = $test;
-        $this->logger = LoggingUtil::getInstance()->getLogger(get_class($this));
+//        $this->logger = LoggingUtil::getInstance()->getLogger(get_class($this));
         $this->verbose = MftfApplicationConfig::getConfig()->verboseEnabled();
 
         // If the clearFailureOnPage() method is overridden, use the configured failure threshold
