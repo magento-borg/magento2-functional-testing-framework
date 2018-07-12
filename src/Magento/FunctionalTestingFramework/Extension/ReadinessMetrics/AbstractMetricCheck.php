@@ -159,10 +159,10 @@ abstract class AbstractMetricCheck
             $currentValue = $this->getCurrentValue();
         }
         catch (UnexpectedAlertOpenException $exception) {
-            $this->debugLog(
-                'An alert is open, bypassing javascript-based metric check',
-                ['action' => $step->getAction()]
-            );
+//            $this->debugLog(
+//                'An alert is open, bypassing javascript-based metric check',
+//                ['action' => $step->getAction()]
+//            );
             return;
         }
 
@@ -179,13 +179,13 @@ abstract class AbstractMetricCheck
             }
             $this->setTracker($currentValue, $failCount);
 
-            $this->errorLog('Failed readiness check', ['action' => $step->getAction()]);
+//            $this->errorLog('Failed readiness check', ['action' => $step->getAction()]);
 
             if ($this->resetFailureThreshold >= 0 && $failCount >= $this->resetFailureThreshold) {
-                $this->debugLog(
-                    'Too many failures, assuming metric is stuck and resetting state',
-                    ['action' => $step->getAction()]
-                );
+//                $this->debugLog(
+//                    'Too many failures, assuming metric is stuck and resetting state',
+//                    ['action' => $step->getAction()]
+//                );
                 $this->resetMetric();
             }
         }
@@ -277,54 +277,54 @@ abstract class AbstractMetricCheck
         unset ($this->currentValue);
     }
 
-    /**
-     * Log the given message to logger->error including context information
-     *
-     * @param string $message
-     * @param array $context
-     */
-    protected function errorLog($message, $context = []) {
-        $context = array_merge($this->getLogContext(), $context);
-        $this->logger->error($message, $context);
-    }
-
-    /**
-     * Log the given message to logger->info including context information
-     *
-     * @param string $message
-     * @param array $context
-     */
-    protected function infoLog($message, $context = []) {
-        $context = array_merge($this->getLogContext(), $context);
-        $this->logger->info($message, $context);
-    }
-
-    /**
-     * If verbose, log the given message to logger->debug including context information
-     *
-     * @param string $message
-     * @param array $context
-     */
-    protected function debugLog($message, $context = []) {
-        if ($this->verbose) {
-            $context = array_merge($this->getLogContext(), $context);
-            $this->logger->debug($message, $context);
-        }
-    }
-
-    /**
-     * Base context information to include in all log messages: test name, current URI, metric state
-     * Reports most recent stored value, not current value, so call setTracker() first to update
-     *
-     * @return array
-     */
-    private function getLogContext() {
-        $testMeta = $this->test->getMetadata();
-        return [
-            'test' => $testMeta->getName(),
-            'uri' => $testMeta->getCurrent('uri'),
-            $this->getName() => $this->getStoredValue(),
-            $this->getName() . '.failCount' => $this->getFailureCount()
-        ];
-    }
+//    /**
+//     * Log the given message to logger->error including context information
+//     *
+//     * @param string $message
+//     * @param array $context
+//     */
+//    protected function errorLog($message, $context = []) {
+//        $context = array_merge($this->getLogContext(), $context);
+//        $this->logger->error($message, $context);
+//    }
+//
+//    /**
+//     * Log the given message to logger->info including context information
+//     *
+//     * @param string $message
+//     * @param array $context
+//     */
+//    protected function infoLog($message, $context = []) {
+//        $context = array_merge($this->getLogContext(), $context);
+//        $this->logger->info($message, $context);
+//    }
+//
+//    /**
+//     * If verbose, log the given message to logger->debug including context information
+//     *
+//     * @param string $message
+//     * @param array $context
+//     */
+//    protected function debugLog($message, $context = []) {
+//        if ($this->verbose) {
+//            $context = array_merge($this->getLogContext(), $context);
+//            $this->logger->debug($message, $context);
+//        }
+//    }
+//
+//    /**
+//     * Base context information to include in all log messages: test name, current URI, metric state
+//     * Reports most recent stored value, not current value, so call setTracker() first to update
+//     *
+//     * @return array
+//     */
+//    private function getLogContext() {
+//        $testMeta = $this->test->getMetadata();
+//        return [
+//            'test' => $testMeta->getName(),
+//            'uri' => $testMeta->getCurrent('uri'),
+//            $this->getName() => $this->getStoredValue(),
+//            $this->getName() . '.failCount' => $this->getFailureCount()
+//        ];
+//    }
 }

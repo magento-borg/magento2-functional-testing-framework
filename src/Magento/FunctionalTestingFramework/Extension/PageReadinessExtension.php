@@ -182,19 +182,19 @@ class PageReadinessExtension extends Extension
             $currentUri = $this->getDriver()->_getCurrentUri();
         }
         catch (\Exception $e) {
-            // $this->debugLog('Could not retrieve current URI', ['action' => $step()->getAction()]);
+            // $this->logDebug('Could not retrieve current URI', ['action' => $step()->getAction()]);
             return;
         }
 
         $previousUri = $this->test->getMetadata()->getCurrent('uri');
 
         if ($previousUri !== $currentUri) {
-            $this->logDebug('Page URI changed; resetting readiness metric failure tracking',
-                [
-                    'action' => $step->getAction(),
-                    'newUri' => $currentUri
-                ]
-            );
+//            $this->logDebug('Page URI changed; resetting readiness metric failure tracking',
+//                [
+//                    'action' => $step->getAction(),
+//                    'newUri' => $currentUri
+//                ]
+//            );
 
             /** @var AbstractMetricCheck $metric */
             foreach ($this->readinessMetrics as $metric) {
@@ -203,25 +203,25 @@ class PageReadinessExtension extends Extension
         }
     }
 
-    /**
-     * If verbose, log the given message to logger->debug including test context information
-     *
-     * @param string $message
-     * @param array $context
-     */
-    private function logDebug($message, $context = []) {
-        if ($this->verbose) {
-            $testMeta = $this->test->getMetadata();
-            $logContext = [
-                'test' => $testMeta->getName(),
-                'uri' => $testMeta->getCurrent('uri')
-            ];
-            foreach ($this->readinessMetrics as $metric) {
-                $logContext[$metric->getName()] = $metric->getStoredValue();
-                $logContext[$metric->getName() . '.failCount'] = $metric->getFailureCount();
-            }
-            $context = array_merge($logContext, $context);
-            $this->logger->info($message, $context);
-        }
-    }
+//    /**
+//     * If verbose, log the given message to logger->debug including test context information
+//     *
+//     * @param string $message
+//     * @param array $context
+//     */
+//    private function logDebug($message, $context = []) {
+//        if ($this->verbose) {
+//            $testMeta = $this->test->getMetadata();
+//            $logContext = [
+//                'test' => $testMeta->getName(),
+//                'uri' => $testMeta->getCurrent('uri')
+//            ];
+//            foreach ($this->readinessMetrics as $metric) {
+//                $logContext[$metric->getName()] = $metric->getStoredValue();
+//                $logContext[$metric->getName() . '.failCount'] = $metric->getFailureCount();
+//            }
+//            $context = array_merge($logContext, $context);
+//            $this->logger->info($message, $context);
+//        }
+//    }
 }
